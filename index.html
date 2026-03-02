@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Consensus Network Animations</title>
+
+<style>
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    max-width: 900px;
+    margin: 40px auto;
+    line-height: 1.6;
+    color: #222;
+}
+
+h1 {
+    margin-bottom: 5px;
+}
+
+.section {
+    margin-top: 35px;
+}
+
+.tag {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    margin-right: 8px;
+}
+
+.eq {
+    background-color: #e6f2ff;
+    color: #003366;
+}
+
+.noeq {
+    background-color: #ffe6e6;
+    color: #660000;
+}
+
+ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+li {
+    margin-bottom: 12px;
+}
+
+a {
+    text-decoration: none;
+    color: #0645ad;
+    font-weight: 600;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+footer {
+    margin-top: 50px;
+    font-size: 0.9rem;
+    color: #666;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Supplementary Network Animations</h1>
+<p>
+Interactive simulations illustrating equilibrium and non-equilibrium dynamics in small networks.
+Each file contains a step-by-step visualization of opinion evolution over time.
+</p>
+
+<div class="section">
+<h2>Equilibrium Dynamics</h2>
+<ul>
+    <li>
+        <span class="tag eq">Equilibrium</span>
+        <a href="Eq_5Ha.html">Eq_5Ha.html</a><br>
+        Stable convergence to consensus in a 5H configuration. The system reaches a steady state after a finite number of updates.
+    </li>
+
+    <li>
+        <span class="tag eq">Equilibrium</span>
+        <a href="Eq_3Hb.html">Eq_3Hb.html</a><br>
+        Convergence to equilibrium in a 3H variant (type b). Demonstrates stable consensus under local interactions.
+    </li>
+
+    <li>
+        <span class="tag eq">Equilibrium</span>
+        <!-- If you rename the file, replace link with Eq_3Lb.html -->
+        <a href="Eq_3Lb.html">Eq _3Lb.html</a><br>
+        Equilibrium case in a 3L configuration (type b). Shows gradual stabilization toward a fixed opinion distribution.
+    </li>
+</ul>
+</div>
+
+<div class="section">
+<h2>Non-Equilibrium Dynamics</h2>
+<ul>
+    <li>
+        <span class="tag noeq">Non-Equilibrium</span>
+        <a href="noEq_3La.html">noEq_3La.html</a><br>
+        Persistent fluctuations in a 3L configuration (type a). The system does not settle into a stable consensus.
+    </li>
+
+    <li>
+        <span class="tag noeq">Non-Equilibrium</span>
+        <a href="noEq_5Ha.html">noEq_5Ha.html</a><br>
+        Oscillatory dynamics in a 5H configuration. Opinions continue changing without reaching equilibrium.
+    </li>
+</ul>
+</div>
+
+<footer>
+<p>
+Supplementary materials for the research article on consensus formation in networks.
+</p>
+</footer>
+
+</body>
+</html>
