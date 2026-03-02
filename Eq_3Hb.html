@@ -1,0 +1,266 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>History Network</title>
+		<style>
+			.node {
+				stroke: #999;
+				stroke-width: 2px;
+			}
+			.type-0 {
+				fill: #ffffff;
+			}
+			.type-1 {
+				fill: #3377ff;
+			}
+			.type-2 {
+				fill: #ff002b;
+			}
+			.type-3 {
+				fill: #808080;
+			}
+			.type-4 {
+				fill: #4b0082;
+			}
+			.type-5 {
+				fill: #ff8c00;
+			}
+			.type-6 {
+				fill: #008000;
+			}
+			.type-7 {
+				fill: #00ffff;
+			}
+			.type-8 {
+				fill: #ffc0cb;
+			}
+			.type-9 {
+				fill: #800080;
+			}
+			.type-10 {
+				fill: #ffff00;
+			}
+			.type-11 {
+				fill: #c0c0c0;
+			}
+			.type-12 {
+				fill: #008080;
+			}
+			.type-13 {
+				fill: #000000;
+			}
+			.type-14 {
+				fill: #ff00ff;
+			}
+			.type-15 {
+				fill: #808000;
+			}
+			.type-16 {
+				fill: #c8c8a2;
+			}
+			
+			.label {
+				font-family: Arial, sans-serif;
+				font-size: 12px;
+				text-anchor: middle;
+				dominant-baseline: central;
+			}
+			.link {
+				fill: none;
+				stroke: #999;
+				stroke-width: 2px;
+			}
+			.node-border {
+				fill: none;
+				stroke: #999;
+				stroke-width: 2px;
+			}
+			svg {
+				border: solid 2px black;
+			}
+			ul {
+				position: fixed;
+				top: 0px;
+				left: 820px;
+				z-index: 1;
+			}
+			ul + ul {
+				position: fixed;
+				top: 0px;
+				left: 1040px;
+				z-index: 1;
+			}
+			ul + ul + ul {
+				position: fixed;
+				top: 0px;
+				left: 1280px;
+				z-index: 1;
+			}
+			ul + ul + ul + ul {
+				position: fixed;
+				top: 0px;
+				left: 1520px;
+				z-index: 1;
+			}
+            .active {
+                background-color: yellow;
+            }
+		</style>
+		<script src="https://d3js.org/d3.v7.min.js"></script>
+		<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+	</head>
+	<body>
+<ul><li id="li1">P12 : red : 3.24 <li id="li2">P10 : blue : 4.351 <li id="li3">P04 : blue : 4.469 <li id="li4">P11 : red : 4.671 <li id="li5">P12 : blue : 4.802 <li id="li6">P06 : blue : 4.919 <li id="li7">P09 : blue : 5.031 <li id="li8">P03 : blue : 5.632 <li id="li9">P08 : blue : 6.82 <li id="li10">P05 : blue : 7.037 <li id="li11">P07 : blue : 7.502 <li id="li12">P11 : red : 7.602 <li id="li13">P12 : red : 7.918 <li id="li14">P12 : blue : 9.495 <li id="li15">P06 : red : 9.568 <li id="li16">P08 : red : 9.874 <li id="li17">P06 : blue : 11.309 <li id="li18">P05 : red : 12.194 <li id="li19">P11 : blue : 12.516 <li id="li20">P11 : red : 13.768 <li id="li21">P12 : red : 15.111 <li id="li22">P02 : blue : 19.011 <li id="li23">P01 : red : 23.722 <li id="li24">P07 : red : 23.82 <li id="li25">P06 : red : 24.699 <li id="li26">P06 : blue : 25.519 <li id="li27">P07 : blue : 26.023 <li id="li28">P02 : red : 26.098 <li id="li29">P07 : red : 26.851 <li id="li30">P11 : blue : 28.966 </ul><ul></ul><ul></ul><ul></ul>
+		<script>
+			const graphData = {
+nodes: [{ id: 'P01', type: 0, x: 100, y: 400, outline_color: '#999' },{ id: 'P02', type: 0, x: 200, y: 500, outline_color: '#999' },{ id: 'P03', type: 0, x: 300, y: 350, outline_color: '#999' },{ id: 'P04', type: 0, x: 400, y: 350, outline_color: '#999' },{ id: 'P05', type: 0, x: 500, y: 500, outline_color: '#999' },{ id: 'P06', type: 0, x: 600, y: 400, outline_color: '#999' },{ id: 'P07', type: 0, x: 600, y: 200, outline_color: '#999' },{ id: 'P08', type: 0, x: 500, y: 100, outline_color: '#999' },{ id: 'P09', type: 0, x: 400, y: 250, outline_color: '#999' },{ id: 'P10', type: 0, x: 300, y: 250, outline_color: '#999' },{ id: 'P11', type: 0, x: 200, y: 100, outline_color: '#999' },{ id: 'P12', type: 0, x: 100, y: 200, outline_color: '#999' },],links: [{ source: 'P01', target: 'P02' },{ source: 'P01', target: 'P03' },{ source: 'P01', target: 'P10' },{ source: 'P01', target: 'P11' },{ source: 'P01', target: 'P12' },{ source: 'P02', target: 'P01' },{ source: 'P02', target: 'P03' },{ source: 'P02', target: 'P10' },{ source: 'P02', target: 'P11' },{ source: 'P02', target: 'P12' },{ source: 'P03', target: 'P01' },{ source: 'P03', target: 'P02' },{ source: 'P03', target: 'P04' },{ source: 'P03', target: 'P11' },{ source: 'P03', target: 'P12' },{ source: 'P04', target: 'P03' },{ source: 'P04', target: 'P05' },{ source: 'P04', target: 'P06' },{ source: 'P04', target: 'P07' },{ source: 'P04', target: 'P08' },{ source: 'P05', target: 'P04' },{ source: 'P05', target: 'P06' },{ source: 'P05', target: 'P07' },{ source: 'P05', target: 'P08' },{ source: 'P05', target: 'P09' },{ source: 'P06', target: 'P04' },{ source: 'P06', target: 'P05' },{ source: 'P06', target: 'P07' },{ source: 'P06', target: 'P08' },{ source: 'P06', target: 'P09' },{ source: 'P07', target: 'P04' },{ source: 'P07', target: 'P05' },{ source: 'P07', target: 'P06' },{ source: 'P07', target: 'P08' },{ source: 'P07', target: 'P09' },{ source: 'P08', target: 'P04' },{ source: 'P08', target: 'P05' },{ source: 'P08', target: 'P06' },{ source: 'P08', target: 'P07' },{ source: 'P08', target: 'P09' },{ source: 'P09', target: 'P05' },{ source: 'P09', target: 'P06' },{ source: 'P09', target: 'P07' },{ source: 'P09', target: 'P08' },{ source: 'P09', target: 'P10' },{ source: 'P10', target: 'P01' },{ source: 'P10', target: 'P02' },{ source: 'P10', target: 'P09' },{ source: 'P10', target: 'P11' },{ source: 'P10', target: 'P12' },{ source: 'P11', target: 'P01' },{ source: 'P11', target: 'P02' },{ source: 'P11', target: 'P03' },{ source: 'P11', target: 'P10' },{ source: 'P11', target: 'P12' },{ source: 'P12', target: 'P01' },{ source: 'P12', target: 'P02' },{ source: 'P12', target: 'P03' },{ source: 'P12', target: 'P10' },{ source: 'P12', target: 'P11' },]
+			};
+
+			const width =  800;
+			const height = 600;
+
+			// Set up the SVG container
+			const svg = d3.select("body").append("svg")
+				.attr("width", width)
+				.attr("height", height);
+
+			// Create the network graph
+			const link = svg.selectAll(".link")
+				.data(graphData.links)
+				.enter().append("line")
+				.attr("class", "link")
+				.style("stroke", "#999")
+				.style("stroke-width", 2)
+				.attr("x1", d => graphData.nodes.find(node => node.id === d.source).x)
+				.attr("y1", d => graphData.nodes.find(node => node.id === d.source).y)
+				.attr("x2", d => graphData.nodes.find(node => node.id === d.target).x)
+				.attr("y2", d => graphData.nodes.find(node => node.id === d.target).y);
+
+
+			const nodeBorder = svg.selectAll(".node-border")
+    .data(graphData.nodes)
+    .enter().append("circle")
+    .attr('class', 'node-border')
+    .attr("r", 32)
+    .attr("cx", d => d.x)
+    .attr("cy", d => d.y)
+    .style("stroke", d => d.outline_color || "#999");
+				
+
+			const node = svg.selectAll(".node")
+				.data(graphData.nodes)
+				.enter().append("circle")
+				.attr('class', d => `node type-${d.type}`)
+				.attr('id', d => `${d.id}`)
+				.attr("r", 30)
+				.attr("cx", d => d.x)
+				.attr("cy", d => d.y);
+				
+
+			const label = svg.selectAll(".label")
+				.data(graphData.nodes)
+				.enter().append("text")
+				.attr("class", "label")
+				.attr("dy", ".1em")
+				.text(d => d.id)
+				.attr("x", d => d.x)
+				.attr("y", d => d.y);
+
+		</script>
+        <br><br>
+		<div>Current: <span id="Current">0</span>/<span>30</total></div>
+        <br>
+        <button id="Start">Start</button>
+        <button id="Prev">Prev</button>
+		<button id="Next">Next</button>
+        <b>|</b>
+        <button id="Auto05">Auto05</button>
+        <button id="Auto1">Auto1</button>
+        <button id="Auto2">Auto2</button>
+        <button id="Stop">Stop</button>
+		
+		<script>
+			const historyData = [
+[{ id: 'P01', type: 0 },{ id: 'P02', type: 0 },{ id: 'P03', type: 0 },{ id: 'P04', type: 0 },{ id: 'P05', type: 0 },{ id: 'P06', type: 0 },{ id: 'P07', type: 0 },{ id: 'P08', type: 0 },{ id: 'P09', type: 0 },{ id: 'P10', type: 0 },{ id: 'P11', type: 0 },{ id: 'P12', type: 0 }],[{ id: 'P01', type: 0 },{ id: 'P02', type: 0 },{ id: 'P03', type: 0 },{ id: 'P04', type: 0 },{ id: 'P05', type: 0 },{ id: 'P06', type: 0 },{ id: 'P07', type: 0 },{ id: 'P08', type: 0 },{ id: 'P09', type: 0 },{ id: 'P10', type: 0 },{ id: 'P11', type: 0 },{ id: 'P12', type: 2 }],[{ id: 'P01', type: 0 },{ id: 'P02', type: 0 },{ id: 'P03', type: 0 },{ id: 'P04', type: 0 },{ id: 'P05', type: 0 },{ id: 'P06', type: 0 },{ id: 'P07', type: 0 },{ id: 'P08', type: 0 },{ id: 'P09', type: 0 },{ id: 'P10', type: 1 },{ id: 'P11', type: 0 },{ id: 'P12', type: 2 }],[{ id: 'P01', type: 0 },{ id: 'P02', type: 0 },{ id: 'P03', type: 0 },{ id: 'P04', type: 1 },{ id: 'P05', type: 0 },{ id: 'P06', type: 0 },{ id: 'P07', type: 0 },{ id: 'P08', type: 0 },{ id: 'P09', type: 0 },{ id: 'P10', type: 1 },{ id: 'P11', type: 0 },{ id: 'P12', type: 2 }],[{ id: 'P01', type: 0 },{ id: 'P02', type: 0 },{ id: 'P03', type: 0 },{ id: 'P04', type: 1 },{ id: 'P05', type: 0 },{ id: 'P06', type: 0 },{ id: 'P07', type: 0 },{ id: 'P08', type: 0 },{ id: 'P09', type: 0 },{ id: 'P10', type: 1 },{ id: 'P11', type: 2 },{ id: 'P12', type: 2 }],[{ id: 'P01', type: 0 },{ id: 'P02', type: 0 },{ id: 'P03', type: 0 },{ id: 'P04', type: 1 },{ id: 'P05', type: 0 },{ id: 'P06', type: 0 },{ id: 'P07', type: 0 },{ id: 'P08', type: 0 },{ id: 'P09', type: 0 },{ id: 'P10', type: 1 },{ id: 'P11', type: 2 },{ id: 'P12', type: 1 }],[{ id: 'P01', type: 0 },{ id: 'P02', type: 0 },{ id: 'P03', type: 0 },{ id: 'P04', type: 1 },{ id: 'P05', type: 0 },{ id: 'P06', type: 1 },{ id: 'P07', type: 0 },{ id: 'P08', type: 0 },{ id: 'P09', type: 0 },{ id: 'P10', type: 1 },{ id: 'P11', type: 2 },{ id: 'P12', type: 1 }],[{ id: 'P01', type: 0 },{ id: 'P02', type: 0 },{ id: 'P03', type: 0 },{ id: 'P04', type: 1 },{ id: 'P05', type: 0 },{ id: 'P06', type: 1 },{ id: 'P07', type: 0 },{ id: 'P08', type: 0 },{ id: 'P09', type: 1 },{ id: 'P10', type: 1 },{ id: 'P11', type: 2 },{ id: 'P12', type: 1 }],[{ id: 'P01', type: 0 },{ id: 'P02', type: 0 },{ id: 'P03', type: 1 },{ id: 'P04', type: 1 },{ id: 'P05', type: 0 },{ id: 'P06', type: 1 },{ id: 'P07', type: 0 },{ id: 'P08', type: 0 },{ id: 'P09', type: 1 },{ id: 'P10', type: 1 },{ id: 'P11', type: 2 },{ id: 'P12', type: 1 }],[{ id: 'P01', type: 0 },{ id: 'P02', type: 0 },{ id: 'P03', type: 1 },{ id: 'P04', type: 1 },{ id: 'P05', type: 0 },{ id: 'P06', type: 1 },{ id: 'P07', type: 0 },{ id: 'P08', type: 1 },{ id: 'P09', type: 1 },{ id: 'P10', type: 1 },{ id: 'P11', type: 2 },{ id: 'P12', type: 1 }],[{ id: 'P01', type: 0 },{ id: 'P02', type: 0 },{ id: 'P03', type: 1 },{ id: 'P04', type: 1 },{ id: 'P05', type: 1 },{ id: 'P06', type: 1 },{ id: 'P07', type: 0 },{ id: 'P08', type: 1 },{ id: 'P09', type: 1 },{ id: 'P10', type: 1 },{ id: 'P11', type: 2 },{ id: 'P12', type: 1 }],[{ id: 'P01', type: 0 },{ id: 'P02', type: 0 },{ id: 'P03', type: 1 },{ id: 'P04', type: 1 },{ id: 'P05', type: 1 },{ id: 'P06', type: 1 },{ id: 'P07', type: 1 },{ id: 'P08', type: 1 },{ id: 'P09', type: 1 },{ id: 'P10', type: 1 },{ id: 'P11', type: 2 },{ id: 'P12', type: 1 }],[{ id: 'P01', type: 0 },{ id: 'P02', type: 0 },{ id: 'P03', type: 1 },{ id: 'P04', type: 1 },{ id: 'P05', type: 1 },{ id: 'P06', type: 1 },{ id: 'P07', type: 1 },{ id: 'P08', type: 1 },{ id: 'P09', type: 1 },{ id: 'P10', type: 1 },{ id: 'P11', type: 2 },{ id: 'P12', type: 1 }],[{ id: 'P01', type: 0 },{ id: 'P02', type: 0 },{ id: 'P03', type: 1 },{ id: 'P04', type: 1 },{ id: 'P05', type: 1 },{ id: 'P06', type: 1 },{ id: 'P07', type: 1 },{ id: 'P08', type: 1 },{ id: 'P09', type: 1 },{ id: 'P10', type: 1 },{ id: 'P11', type: 2 },{ id: 'P12', type: 2 }],[{ id: 'P01', type: 0 },{ id: 'P02', type: 0 },{ id: 'P03', type: 1 },{ id: 'P04', type: 1 },{ id: 'P05', type: 1 },{ id: 'P06', type: 1 },{ id: 'P07', type: 1 },{ id: 'P08', type: 1 },{ id: 'P09', type: 1 },{ id: 'P10', type: 1 },{ id: 'P11', type: 2 },{ id: 'P12', type: 1 }],[{ id: 'P01', type: 0 },{ id: 'P02', type: 0 },{ id: 'P03', type: 1 },{ id: 'P04', type: 1 },{ id: 'P05', type: 1 },{ id: 'P06', type: 2 },{ id: 'P07', type: 1 },{ id: 'P08', type: 1 },{ id: 'P09', type: 1 },{ id: 'P10', type: 1 },{ id: 'P11', type: 2 },{ id: 'P12', type: 1 }],[{ id: 'P01', type: 0 },{ id: 'P02', type: 0 },{ id: 'P03', type: 1 },{ id: 'P04', type: 1 },{ id: 'P05', type: 1 },{ id: 'P06', type: 2 },{ id: 'P07', type: 1 },{ id: 'P08', type: 2 },{ id: 'P09', type: 1 },{ id: 'P10', type: 1 },{ id: 'P11', type: 2 },{ id: 'P12', type: 1 }],[{ id: 'P01', type: 0 },{ id: 'P02', type: 0 },{ id: 'P03', type: 1 },{ id: 'P04', type: 1 },{ id: 'P05', type: 1 },{ id: 'P06', type: 1 },{ id: 'P07', type: 1 },{ id: 'P08', type: 2 },{ id: 'P09', type: 1 },{ id: 'P10', type: 1 },{ id: 'P11', type: 2 },{ id: 'P12', type: 1 }],[{ id: 'P01', type: 0 },{ id: 'P02', type: 0 },{ id: 'P03', type: 1 },{ id: 'P04', type: 1 },{ id: 'P05', type: 2 },{ id: 'P06', type: 1 },{ id: 'P07', type: 1 },{ id: 'P08', type: 2 },{ id: 'P09', type: 1 },{ id: 'P10', type: 1 },{ id: 'P11', type: 2 },{ id: 'P12', type: 1 }],[{ id: 'P01', type: 0 },{ id: 'P02', type: 0 },{ id: 'P03', type: 1 },{ id: 'P04', type: 1 },{ id: 'P05', type: 2 },{ id: 'P06', type: 1 },{ id: 'P07', type: 1 },{ id: 'P08', type: 2 },{ id: 'P09', type: 1 },{ id: 'P10', type: 1 },{ id: 'P11', type: 1 },{ id: 'P12', type: 1 }],[{ id: 'P01', type: 0 },{ id: 'P02', type: 0 },{ id: 'P03', type: 1 },{ id: 'P04', type: 1 },{ id: 'P05', type: 2 },{ id: 'P06', type: 1 },{ id: 'P07', type: 1 },{ id: 'P08', type: 2 },{ id: 'P09', type: 1 },{ id: 'P10', type: 1 },{ id: 'P11', type: 2 },{ id: 'P12', type: 1 }],[{ id: 'P01', type: 0 },{ id: 'P02', type: 0 },{ id: 'P03', type: 1 },{ id: 'P04', type: 1 },{ id: 'P05', type: 2 },{ id: 'P06', type: 1 },{ id: 'P07', type: 1 },{ id: 'P08', type: 2 },{ id: 'P09', type: 1 },{ id: 'P10', type: 1 },{ id: 'P11', type: 2 },{ id: 'P12', type: 2 }],[{ id: 'P01', type: 0 },{ id: 'P02', type: 1 },{ id: 'P03', type: 1 },{ id: 'P04', type: 1 },{ id: 'P05', type: 2 },{ id: 'P06', type: 1 },{ id: 'P07', type: 1 },{ id: 'P08', type: 2 },{ id: 'P09', type: 1 },{ id: 'P10', type: 1 },{ id: 'P11', type: 2 },{ id: 'P12', type: 2 }],[{ id: 'P01', type: 2 },{ id: 'P02', type: 1 },{ id: 'P03', type: 1 },{ id: 'P04', type: 1 },{ id: 'P05', type: 2 },{ id: 'P06', type: 1 },{ id: 'P07', type: 1 },{ id: 'P08', type: 2 },{ id: 'P09', type: 1 },{ id: 'P10', type: 1 },{ id: 'P11', type: 2 },{ id: 'P12', type: 2 }],[{ id: 'P01', type: 2 },{ id: 'P02', type: 1 },{ id: 'P03', type: 1 },{ id: 'P04', type: 1 },{ id: 'P05', type: 2 },{ id: 'P06', type: 1 },{ id: 'P07', type: 2 },{ id: 'P08', type: 2 },{ id: 'P09', type: 1 },{ id: 'P10', type: 1 },{ id: 'P11', type: 2 },{ id: 'P12', type: 2 }],[{ id: 'P01', type: 2 },{ id: 'P02', type: 1 },{ id: 'P03', type: 1 },{ id: 'P04', type: 1 },{ id: 'P05', type: 2 },{ id: 'P06', type: 2 },{ id: 'P07', type: 2 },{ id: 'P08', type: 2 },{ id: 'P09', type: 1 },{ id: 'P10', type: 1 },{ id: 'P11', type: 2 },{ id: 'P12', type: 2 }],[{ id: 'P01', type: 2 },{ id: 'P02', type: 1 },{ id: 'P03', type: 1 },{ id: 'P04', type: 1 },{ id: 'P05', type: 2 },{ id: 'P06', type: 1 },{ id: 'P07', type: 2 },{ id: 'P08', type: 2 },{ id: 'P09', type: 1 },{ id: 'P10', type: 1 },{ id: 'P11', type: 2 },{ id: 'P12', type: 2 }],[{ id: 'P01', type: 2 },{ id: 'P02', type: 1 },{ id: 'P03', type: 1 },{ id: 'P04', type: 1 },{ id: 'P05', type: 2 },{ id: 'P06', type: 1 },{ id: 'P07', type: 1 },{ id: 'P08', type: 2 },{ id: 'P09', type: 1 },{ id: 'P10', type: 1 },{ id: 'P11', type: 2 },{ id: 'P12', type: 2 }],[{ id: 'P01', type: 2 },{ id: 'P02', type: 2 },{ id: 'P03', type: 1 },{ id: 'P04', type: 1 },{ id: 'P05', type: 2 },{ id: 'P06', type: 1 },{ id: 'P07', type: 1 },{ id: 'P08', type: 2 },{ id: 'P09', type: 1 },{ id: 'P10', type: 1 },{ id: 'P11', type: 2 },{ id: 'P12', type: 2 }],[{ id: 'P01', type: 2 },{ id: 'P02', type: 2 },{ id: 'P03', type: 1 },{ id: 'P04', type: 1 },{ id: 'P05', type: 2 },{ id: 'P06', type: 1 },{ id: 'P07', type: 2 },{ id: 'P08', type: 2 },{ id: 'P09', type: 1 },{ id: 'P10', type: 1 },{ id: 'P11', type: 2 },{ id: 'P12', type: 2 }],[{ id: 'P01', type: 2 },{ id: 'P02', type: 2 },{ id: 'P03', type: 1 },{ id: 'P04', type: 1 },{ id: 'P05', type: 2 },{ id: 'P06', type: 1 },{ id: 'P07', type: 2 },{ id: 'P08', type: 2 },{ id: 'P09', type: 1 },{ id: 'P10', type: 1 },{ id: 'P11', type: 1 },{ id: 'P12', type: 2 }]
+			]
+		</script>
+		<script>
+			var current = 0;
+            var interval;
+			$( "#Start" ).on( "click", function() {
+				current = 0;
+				$('#Current').text(current);
+				load_history(current);
+			});
+			$( "#Prev" ).on( "click", function() {
+				current = current - 1;
+				if (current < 0) { current = 0; }
+				$('#Current').text(current);
+				load_history(current);
+			});
+			$( "#Next" ).on( "click", function() {
+				current = current + 1;
+				if (current > historyData.length - 1) { current = historyData.length - 1; }
+				$('#Current').text(current);
+				load_history(current);
+			});
+			$( "#Auto05" ).on( "click", function() {
+                clearInterval(interval);
+                interval = setInterval(function(){
+                    current = current + 1;
+                    if (current > historyData.length - 1) { current = historyData.length - 1; }
+                    $('#Current').text(current);
+                    load_history(current);
+                }, 500);
+			});
+			$( "#Auto1" ).on( "click", function() {
+                clearInterval(interval);
+                interval = setInterval(function(){
+                    current = current + 1;
+                    if (current > historyData.length - 1) { current = historyData.length - 1; }
+                    $('#Current').text(current);
+                    load_history(current);
+                }, 1000);
+			});
+			$( "#Auto2" ).on( "click", function() {
+                clearInterval(interval);
+                interval = setInterval(function(){
+                    current = current + 1;
+                    if (current > historyData.length - 1) { current = historyData.length - 1; }
+                    $('#Current').text(current);
+                    load_history(current);
+                }, 2000);
+			});
+			$( "#Stop" ).on( "click", function() {
+                clearInterval(interval);
+			});
+			
+			function load_history(target) {
+				state = historyData[target];
+				for (const [key, value] of Object.entries(state)) {
+					$('#' + value.id).removeClass('type-0');
+					$('#' + value.id).removeClass('type-1');
+					$('#' + value.id).removeClass('type-2');
+					$('#' + value.id).removeClass('type-3');
+					$('#' + value.id).removeClass('type-4');
+					$('#' + value.id).removeClass('type-5');
+					$('#' + value.id).removeClass('type-6');
+					$('#' + value.id).removeClass('type-7');
+					$('#' + value.id).removeClass('type-8');
+					$('#' + value.id).removeClass('type-9');
+					$('#' + value.id).removeClass('type-10');
+					$('#' + value.id).removeClass('type-11');
+					$('#' + value.id).removeClass('type-12');
+					$('#' + value.id).removeClass('type-13');
+					$('#' + value.id).removeClass('type-14');
+					$('#' + value.id).removeClass('type-15');
+					$('#' + value.id).removeClass('type-16');
+					$('#' + value.id).addClass('type-' + value.type);
+				}
+                $('li').removeClass('active');
+                $('#li' + target).addClass('active');
+			}
+		</script>
+	</body>
+</html>
